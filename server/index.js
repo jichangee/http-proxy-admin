@@ -10,22 +10,22 @@ const app = express();
 
 app.use('/app', express.static(path.resolve(__dirname, '../client/dist')))
 
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json({ limit: "5mb" }));
-
-app.use("/api", api);
-
 proxyConfig.list.forEach((item) => {
   app.use(
     "/proxy" + item.path,
     createProxyMiddleware({
       target: item.target,
       changeOrigin: true,
-      pathRewrite: { "^/proxy": "" },
+      pathRewrite: { ['^/proxy' + item.path] : "" },
     })
   );
 });
+
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: "5mb" }));
+
+app.use("/api", api);
 
 app.listen(proxyConfig.port);
 
