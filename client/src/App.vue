@@ -42,7 +42,7 @@ export default defineComponent({
     const tableData = ref([]);
 
     const handleSearch = () => {
-      fetch("http://localhost:3000/api/list")
+      fetch("/api/list")
         .then((r) => r.json())
         .then((res) => (tableData.value = res));
     };
@@ -51,7 +51,7 @@ export default defineComponent({
       visible.value = true;
     };
     const handleModalConfirm = (done) => {
-      return fetch("http://localhost:3000/api/create", {
+      return fetch("/api/create", {
         method: "post",
         headers: {
           "content-type": "application/json",

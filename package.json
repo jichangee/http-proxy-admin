@@ -1,0 +1,20 @@
+{
+  "name": "http-proxy-admin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "cd ./client && yarn && yarn build && cd ../server && yarn && npx pm2 restart index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jichangee/http-proxy-admin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jichangee/http-proxy-admin/issues"
+  },
+  "homepage": "https://github.com/jichangee/http-proxy-admin#readme"
+}

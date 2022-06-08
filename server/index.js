@@ -1,11 +1,14 @@
 const express = require("express");
-const fs = require("fs");
+const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const { api } = require("./src/routes/api");
-const proxyConfig = JSON.parse(fs.readFileSync("./db.json").toString());
+const { getProxyConfig } = require('./src/utils')
+const proxyConfig = getProxyConfig()
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const app = express();
+
+app.use('/app', express.static(path.resolve(__dirname, '../client/dist')))
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));

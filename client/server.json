@@ -1,0 +1,9 @@
+{
+  "apps": [
+      {
+          "name": "jitai-pc",
+          "script": "yarn",
+          "args" : "dev"
+      }
+  ]
+}

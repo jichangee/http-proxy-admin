@@ -1,9 +1,11 @@
 const fs = require('fs')
-const dbPath = './db.json'
+const path = require('path')
+const dbPath = path.resolve(__dirname, '../db.json')
 const defaultProxyConfig = {
   "port": 30000,
   "list": []
 }
+console.log('dbPath', dbPath)
 const getProxyConfig = () => {
   try {
     return JSON.parse(fs.readFileSync(dbPath).toString())
@@ -21,6 +23,7 @@ const setProxyConfig = (proxyConfig = defaultProxyConfig) => {
 }
 
 module.exports = {
+  dbPath,
   getProxyConfig,
   setProxyConfig,
   defaultProxyConfig
