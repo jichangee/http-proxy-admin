@@ -38,6 +38,11 @@ export default defineComponent({
         dataIndex: "target",
         slotName: "target",
       },
+      {
+        title: "Action",
+        dataIndex: "action",
+        slotName: "action",
+      },
     ];
     const tableData = ref([]);
 
@@ -111,6 +116,9 @@ export default defineComponent({
               target="_blank"
               >{{ `/proxy${tableData[rowIndex].path}` }}</a
             >
+          </template>
+          <template #action="{ rowIndex }">
+            <Button type="danger">删除</Button>
           </template>
         </Table>
       </Card>
