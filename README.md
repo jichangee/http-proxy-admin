@@ -3,7 +3,7 @@
 </div>
 
 <div align="center">
-📦 开箱即用，一个简易的http请求转发控制台，依赖express和http-proxy-middleware
+📦 开箱即用，一个简易的http请求转发控制面板，依赖express和http-proxy-middleware
 </div>
 
 # 安装依赖
