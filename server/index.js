@@ -27,6 +27,8 @@ app.use(bodyParser.json({ limit: "5mb" }));
 
 app.use("/api", api);
 
-app.listen(proxyConfig.port);
+const LISTEN_PORT = process.env.PORT || proxyConfig.port
 
-console.log(`Proxy server is running on  http://localhost:${proxyConfig.port}`);
+app.listen(LISTEN_PORT);
+
+console.log(`Proxy server is running on  http://localhost:${LISTEN_PORT}`);
