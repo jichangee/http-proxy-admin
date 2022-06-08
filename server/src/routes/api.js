@@ -9,6 +9,16 @@ api.get('/list', async (req, res) => {
   res.status(200).json(proxyConfig.list)
 })
 
+api.delete('/:id', async (req, res) => {
+  if (!req.params.id) {
+    return res.status(400).json({ message: 'id is required' })
+  }
+  const proxyConfig = getProxyConfig()
+  proxyConfig.list = proxyConfig.list.filter(item => item.id !== req.params.id)
+  setProxyConfig(proxyConfig)
+  res.status(200).json(proxyConfig.list)
+})
+
 api.post('/reset', async (req, res) => {
   setProxyConfig()
   res.status(200).json(defaultProxyConfig.list)
