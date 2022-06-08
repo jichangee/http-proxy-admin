@@ -6,13 +6,15 @@
 📦 开箱即用，一个简易的http请求转发控制面板，依赖express和http-proxy-middleware
 </div>
 
-# 安装依赖
+# 启动前
 ```bash
 # 依赖pm2
 npm i -g pm2
+
+npm run build
 ```
 
-# 运行
+# 启动
 ```bash
 npm start
 或者
