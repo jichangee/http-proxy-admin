@@ -1,7 +1,7 @@
 const fs = require('fs')
 const dbPath = './db.json'
 const defaultProxyConfig = {
-  "port": 3000,
+  "port": 30000,
   "list": []
 }
 const getProxyConfig = () => {
