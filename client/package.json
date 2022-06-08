@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@arco-design/web-vue": "^2.29.1",
+    "axios": "^0.27.2",
     "unplugin-vue-components": "^0.19.6",
     "vue": "^3.2.25"
   },
