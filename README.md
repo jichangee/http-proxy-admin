@@ -19,4 +19,8 @@ npm run build
 npm start
 或者
 yarn start
+
+# 面板服务运行在 http://localhost:30000/app/
+# 代理服务运行在 http://localhost:30000/proxy/
+# 接口服务运行在 http://localhost:30000/api/
 ```
