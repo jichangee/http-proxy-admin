@@ -35,11 +35,17 @@ api.post('/create', async (req, res) => {
     return res.status(400).json({ message: 'path is already exist' })
   }
 
-  proxyConfig.list.push({
+  const item = {
     id: nanoid(),
     path,
     target
-  })
+  }
+  if (item.path === '/') {
+    proxyConfig.list = proxyConfig.list.concat([item])
+  } else {
+    proxyConfig.list = [item].concat(proxyConfig.list)
+  }
+  
   setProxyConfig(proxyConfig)
   res.status(200).json(proxyConfig.list)
 })
