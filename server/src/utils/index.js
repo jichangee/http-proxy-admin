@@ -3,7 +3,13 @@ const path = require('path')
 const dbPath = path.resolve(__dirname, '../db.json')
 const defaultProxyConfig = {
   "port": 30000,
-  "list": []
+  "list": [
+    {
+      id: 0,
+      path: '/',
+      target: 'https://www.baidu.com'
+    }
+  ]
 }
 console.log('dbPath', dbPath)
 const getProxyConfig = () => {
