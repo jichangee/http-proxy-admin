@@ -8,11 +8,14 @@
     <Card>
       <Table :columns="columns" :data="tableData">
         <template #path="{ rowIndex }">
-          <a
-            :href="`${proxyBaseUrl}${tableData[rowIndex].path}`"
-            target="_blank"
-            >{{ tableData[rowIndex].path }}</a
-          >
+          <Space>
+            <a
+              :href="`${proxyBaseUrl}${tableData[rowIndex].path}`"
+              target="_blank"
+              >{{ tableData[rowIndex].path }}</a
+            >
+            <icon-copy class="icon-copy" @click="handleCopy(`${proxyBaseUrl}${tableData[rowIndex].path}`)" />
+          </Space>
         </template>
         <template #action="{ rowIndex }">
           <Popconfirm
@@ -50,6 +53,7 @@
 <script>
 import request from "@/utils/request";
 import config from "@/config/api";
+import { copyText } from 'vue3-clipboard'
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import {
@@ -60,6 +64,7 @@ import {
   Space,
   Modal,
   Form,
+  Message,
   FormItem,
   Popconfirm,
 } from "@arco-design/web-vue";
@@ -128,6 +133,11 @@ export default defineComponent({
           done(false)
         })
     };
+    const handleCopy = (text) => {
+      copyText(text, undefined, () => {
+        Message.success('复制成功')
+      })
+    }
     const handleModalCancel = () => {
       visible.value = false;
     };
@@ -141,6 +151,7 @@ export default defineComponent({
       visible,
       columns,
       tableData,
+      handleCopy,
       handleSearch,
       handleCreate,
       handleDelete,
@@ -154,5 +165,8 @@ export default defineComponent({
 <style>
 .container {
   margin: 24px;
+}
+.icon-copy {
+  cursor: pointer;
 }
 </style>
