@@ -12,7 +12,8 @@
     "@arco-design/web-vue": "^2.29.1",
     "axios": "^0.27.2",
     "unplugin-vue-components": "^0.19.6",
-    "vue": "^3.2.25"
+    "vue": "^3.2.25",
+    "vue3-clipboard": "^1.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
