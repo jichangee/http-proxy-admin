@@ -1,6 +1,6 @@
 const BASE_URL = {
   development: 'http://localhost:30000',
-  production: ''
+  production: window.location.origin
 }
 
 export const config = (env) => {
