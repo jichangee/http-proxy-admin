@@ -24,3 +24,6 @@ yarn start
 # 代理服务运行在 http://localhost:30000/proxy/
 # 接口服务运行在 http://localhost:30000/api/
 ```
+
+# Demo
+![demo](./screenshot/demo.gif)
