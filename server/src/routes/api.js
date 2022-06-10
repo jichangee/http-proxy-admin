@@ -14,7 +14,7 @@ api.delete('/:id', async (req, res) => {
     return res.status(400).json({ message: 'id is required' })
   }
   const proxyConfig = getProxyConfig()
-  proxyConfig.list = proxyConfig.list.filter(item => item.id !== req.params.id)
+  proxyConfig.list = proxyConfig.list.filter(item => `${item.id}` !== req.params.id)
   setProxyConfig(proxyConfig)
   res.status(200).json(proxyConfig.list)
 })
