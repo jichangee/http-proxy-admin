@@ -7,7 +7,8 @@ const defaultProxyConfig = {
     {
       id: '0',
       path: '/',
-      target: 'https://www.baidu.com'
+      target: 'https://www.baidu.com',
+      status: 1
     }
   ]
 }
