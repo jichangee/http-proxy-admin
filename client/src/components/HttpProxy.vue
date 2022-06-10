@@ -119,7 +119,7 @@ export default defineComponent({
       request.get("/api/list").then((res) => (tableData.value = res));
     };
     const handleDelete = (id) => {
-      request.delete(`${config.BASE_URL}/api/${id}`).then((list) => {
+      request.delete(`/api/${id}`).then((list) => {
         tableData.value = list;
       });
     };
