@@ -10,7 +10,7 @@ const app = express();
 
 app.use('/app', express.static(path.resolve(__dirname, '../client/dist')))
 
-proxyConfig.list.forEach((item) => {
+proxyConfig.list.filter(item => item.status !== 0).forEach((item) => {
   app.use(
     "/proxy" + item.path,
     createProxyMiddleware({
