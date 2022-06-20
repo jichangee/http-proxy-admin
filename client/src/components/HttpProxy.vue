@@ -28,6 +28,7 @@
               :status="tableData[rowIndex].status === 0 ? 'success' : 'warning'"
               >{{tableData[rowIndex].status === 0 ? '启用' : '禁用'}}</Button
             >
+            <Button type="primary" @click="handleUpdate(tableData[rowIndex])">编辑</Button>
             <Popconfirm
               content="确认删除？"
               @ok="handleDelete(tableData[rowIndex].id)"
@@ -94,6 +95,7 @@ export default defineComponent({
   },
   setup() {
     const visible = ref(false);
+    const isUpdate = ref(false);
     const proxyBaseUrl = ref(`${config.BASE_URL}/proxy`);
     const form = reactive({ path: "", target: "" });
     const columns = [
@@ -128,6 +130,13 @@ export default defineComponent({
       form.target = "";
       visible.value = true;
     };
+    const handleUpdate = (item) => {
+      isUpdate.value = true
+      visible.value = true
+      form.path = item.path
+      form.target = item.target
+      form.id = item.id
+    }
     const handleStatus = (item, index) => {
       const status = ~item.status + 2
       request.put(`/api/${item.id}`, {
@@ -140,6 +149,15 @@ export default defineComponent({
       const data = { ...form };
       if (!data.path.startsWith("/")) {
         data.path = `/${data.path}`;
+      }
+      if (isUpdate.value) {
+        return request.put(`/api/${data.id}`, data).then((data) => {
+          handleSearch()
+          isUpdate.value = false
+          done()
+        }).catch(() => {
+          done(false)
+        })
       }
       return request
         .post("/api/create", {
@@ -172,6 +190,7 @@ export default defineComponent({
       columns,
       tableData,
       handleCopy,
+      handleUpdate,
       handleStatus,
       handleSearch,
       handleCreate,
