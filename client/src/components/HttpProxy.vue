@@ -15,9 +15,20 @@
               >{{ tableData[rowIndex].path }}</a
             >
             <icon-copy
-              class="icon-copy"
+              class="icon"
               @click="handleCopy(`${proxyBaseUrl}${tableData[rowIndex].path}`)"
             />
+          </Space>
+        </template>
+        <template #target="{ rowIndex }">
+          <Space>
+            <p>{{ tableData[rowIndex].target }}</p>
+            <a :href="getSafeHttpUrl(tableData[rowIndex].target)" target="_blank">
+              <icon-launch
+                class="icon"
+                @click="handleCopy(`${proxyBaseUrl}${tableData[rowIndex].path}`)"
+              />
+            </a>
           </Space>
         </template>
         <template #action="{ rowIndex }">
@@ -26,9 +37,11 @@
               type="primary"
               @click="handleStatus(tableData[rowIndex], rowIndex)"
               :status="tableData[rowIndex].status === 0 ? 'success' : 'warning'"
-              >{{tableData[rowIndex].status === 0 ? '启用' : '禁用'}}</Button
+              >{{ tableData[rowIndex].status === 0 ? "启用" : "禁用" }}</Button
             >
-            <Button type="primary" @click="handleUpdate(tableData[rowIndex])">编辑</Button>
+            <Button type="primary" @click="handleUpdate(tableData[rowIndex])"
+              >编辑</Button
+            >
             <Popconfirm
               content="确认删除？"
               @ok="handleDelete(tableData[rowIndex].id)"
@@ -131,33 +144,44 @@ export default defineComponent({
       visible.value = true;
     };
     const handleUpdate = (item) => {
-      isUpdate.value = true
-      visible.value = true
-      form.path = item.path
-      form.target = item.target
-      form.id = item.id
+      isUpdate.value = true;
+      visible.value = true;
+      form.path = item.path;
+      form.target = item.target;
+      form.id = item.id;
+    };
+    const getSafeHttpUrl = (url) => {
+      if (/https?:\/\//.test(url)) {
+        return url
+      }
+      return `https://${url}`
     }
     const handleStatus = (item, index) => {
-      const status = ~item.status + 2
-      request.put(`/api/${item.id}`, {
-        status
-      }).then((data) => {
-        handleSearch()
-      })
-    }
+      const status = ~item.status + 2;
+      request
+        .put(`/api/${item.id}`, {
+          status,
+        })
+        .then((data) => {
+          handleSearch();
+        });
+    };
     const handleModalConfirm = (done) => {
       const data = { ...form };
       if (!data.path.startsWith("/")) {
         data.path = `/${data.path}`;
       }
       if (isUpdate.value) {
-        return request.put(`/api/${data.id}`, data).then((data) => {
-          handleSearch()
-          isUpdate.value = false
-          done()
-        }).catch(() => {
-          done(false)
-        })
+        return request
+          .put(`/api/${data.id}`, data)
+          .then((data) => {
+            handleSearch();
+            isUpdate.value = false;
+            done();
+          })
+          .catch(() => {
+            done(false);
+          });
       }
       return request
         .post("/api/create", {
@@ -196,6 +220,7 @@ export default defineComponent({
       handleCreate,
       handleDelete,
       proxyBaseUrl,
+      getSafeHttpUrl,
       handleModalConfirm,
     };
   },
@@ -206,7 +231,7 @@ export default defineComponent({
 .container {
   margin: 24px;
 }
-.icon-copy {
+.icon {
   cursor: pointer;
 }
 </style>
